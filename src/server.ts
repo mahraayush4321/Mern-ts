@@ -2,22 +2,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express, { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
-import noteModel from "./Models/Notes"
+import notesRoutes from './Routes/Notes.route'
 const app=express();
 
 const MONGO_URI_STRING='mongodb+srv://tanishqmahra:z7ZdHv6rKz8xF4eu@cluster0.kn5t9pn.mongodb.net/Tsmern?retryWrites=true&w=majority'
 const Port=process.env.PORT || 5000
 
-app.get("/",async(req,res,next)=>{
-    try {
-        //throw error ('lol')
-        const notes=await noteModel.find().exec();
-        res.status(200).json(notes)
-    } catch (error) {
-        next(error)
-    }
-
-});
+app.use("/api/notes",notesRoutes)
 
 app.use((req,res,next)=>{
     next(Error("Endpoint not found"))
