@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import notesRoutes from './Routes/Notes.route'
 const app=express();
 
+app.use(express.json());
+
 const MONGO_URI_STRING='mongodb+srv://tanishqmahra:z7ZdHv6rKz8xF4eu@cluster0.kn5t9pn.mongodb.net/Tsmern?retryWrites=true&w=majority'
 const Port=process.env.PORT || 5000
 

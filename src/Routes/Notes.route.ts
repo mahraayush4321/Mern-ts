@@ -4,4 +4,6 @@ const router=express.Router();
 
 router.get("/",notesController.getNotes);
 
+router.post("/",notesController.createNotes);
+
 export default router;
