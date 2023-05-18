@@ -6,8 +6,10 @@ router.get("/",notesController.getNotes);
 
 router.get("/:noteId",notesController.getNote);
 
-router.post("/",notesController.createNotes);
+router.post("/createNotes",notesController.createNotes);
 
+router.patch("/:noteId",notesController.updateNotes)
 
+router.delete("/:noteId",notesController.deleteNote)
 
 export default router;
