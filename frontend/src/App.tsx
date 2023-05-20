@@ -1,9 +1,10 @@
+import { Container, Row, Col } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
-import "./App.css";
-import { Note } from "./models/INotes";
+import { Note as NoteModel } from "./models/INotes";
+import Notes from "./components/Notes";
 
 function App() {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState<NoteModel[]>([]);
 
   useEffect(() => {
     async function loadNotes() {
@@ -21,7 +22,17 @@ function App() {
     loadNotes();
   }, []);
 
-  return <div className="App">{JSON.stringify(notes)}</div>;
+  return (
+    <Container>
+      <Row xs={1} md={2} xl={3} className="g-4">
+        {notes.map((note) => (
+          <Col key={note._id}>
+            <Notes note={note} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  );
 }
 
 export default App;
