@@ -17,3 +17,19 @@ export async function fetchNotes(): Promise<Note[]> {
   });
   return response.json();
 }
+
+export interface noteInput {
+  title: string;
+  text?: string;
+}
+
+export async function createNote(note: noteInput): Promise<Note> {
+  const response = await fetchData("/api/notes", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(note),
+  });
+  return response.json();
+}
