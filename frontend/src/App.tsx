@@ -26,7 +26,7 @@ function App() {
 
   return (
     <Container>
-      <Button onClick={() => setShowAddNote(true)}></Button>
+      <Button className="mb-4" onClick={() => setShowAddNote(true)}></Button>
       <Row xs={1} md={2} xl={3} className="g-4">
         {notes.map((note) => (
           <Col key={note._id}>
@@ -37,7 +37,10 @@ function App() {
       {showAddNote && (
         <AddNoteBox
           onDismiss={() => setShowAddNote(false)}
-          onNoteSaved={() => {}}
+          onNoteSaved={(newNote) => {
+            setNotes([...notes, newNote]);
+            setShowAddNote(false);
+          }}
         />
       )}
     </Container>
