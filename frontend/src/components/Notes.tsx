@@ -5,13 +5,14 @@ import styles from "../styles/Note.module.css";
 
 interface NotesProps {
   note: NoteModel;
+  className?: string;
 }
 
-const Notes = ({ note }: NotesProps) => {
+const Notes = ({ note, className }: NotesProps) => {
   const { title, text, createdAt, updatedAt } = note;
 
   return (
-    <Card className={styles.noteCard}>
+    <Card className={`${styles.noteCard} ${className}`}>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text className={styles.cardText}>{text}</Card.Text>

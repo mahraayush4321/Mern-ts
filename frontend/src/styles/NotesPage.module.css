@@ -1,7 +1,9 @@
 .note {
   height: 200px;
   min-width: 150px;
+  transition: height 4s;
 }
 .note:hover {
   box-shadow: 0 0 15px #00008b;
+  height: 240px;
 }
