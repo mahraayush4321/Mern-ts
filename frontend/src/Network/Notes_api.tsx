@@ -1,7 +1,19 @@
-import React from "react";
+import { Note } from "../models/INotes";
 
-const Notes_api = () => {
-  return <div>Notes_api</div>;
-};
+async function fetchData(input: RequestInfo, init?: RequestInit) {
+  const response = await fetch(input, init);
+  if (response.ok) {
+    return response;
+  } else {
+    const errorBody = await response.json();
+    const errorMessage = errorBody.error;
+    throw Error(errorMessage);
+  }
+}
 
-export default Notes_api;
+export async function fetchNotes(): Promise<Note[]> {
+  const response = await fetchData("/api/notes", {
+    method: "GET",
+  });
+  return response.json();
+}
