@@ -4,14 +4,13 @@ import { Note } from "../models/INotes";
 import { useForm } from "react-hook-form";
 import { noteInput } from "../Network/Notes_api";
 import * as NotesApi from "../Network/Notes_api";
-import { register } from "ts-node";
 
-interface AddNoteBoxProps {
+interface AddEditNoteBoxProps {
   onDismiss: () => void;
   onNoteSaved: (note: Note) => void;
 }
 
-const AddNoteBox = ({ onDismiss, onNoteSaved }: AddNoteBoxProps) => {
+const AddEditNoteBox = ({ onDismiss, onNoteSaved }: AddEditNoteBoxProps) => {
   const {
     register,
     handleSubmit,
@@ -69,4 +68,4 @@ const AddNoteBox = ({ onDismiss, onNoteSaved }: AddNoteBoxProps) => {
   );
 };
 
-export default AddNoteBox;
+export default AddEditNoteBox;

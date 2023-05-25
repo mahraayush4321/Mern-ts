@@ -4,7 +4,8 @@ import { Note as NoteModel } from "./models/INotes";
 import Notes from "./components/Notes";
 import styles from "./styles/NotesPage.module.css";
 import * as NotesApi from "./Network/Notes_api";
-import AddNoteBox from "./components/AddNoteBox";
+import AddNoteBox from "./components/AddEditNoteBox";
+import { FaPlus } from "react-icons/fa";
 
 function App() {
   const [notes, setNotes] = useState<NoteModel[]>([]);
@@ -36,7 +37,9 @@ function App() {
 
   return (
     <Container>
-      <Button className="mb-4" onClick={() => setShowAddNote(true)}></Button>
+      <Button className="mb-4" onClick={() => setShowAddNote(true)}>
+        <FaPlus />
+      </Button>
       <Row xs={1} md={2} xl={3} className="g-4">
         {notes.map((note) => (
           <Col key={note._id}>
