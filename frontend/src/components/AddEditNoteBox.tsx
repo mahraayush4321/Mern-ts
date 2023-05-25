@@ -6,20 +6,35 @@ import { noteInput } from "../Network/Notes_api";
 import * as NotesApi from "../Network/Notes_api";
 
 interface AddEditNoteBoxProps {
+  noteToEdit?: Note;
   onDismiss: () => void;
   onNoteSaved: (note: Note) => void;
 }
 
-const AddEditNoteBox = ({ onDismiss, onNoteSaved }: AddEditNoteBoxProps) => {
+const AddEditNoteBox = ({
+  noteToEdit,
+  onDismiss,
+  onNoteSaved,
+}: AddEditNoteBoxProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<noteInput>();
+  } = useForm<noteInput>({
+    defaultValues: {
+      title: noteToEdit?.title || "",
+      text: noteToEdit?.text || "",
+    },
+  });
 
   async function onSubmit(input: noteInput) {
     try {
-      const noteResponse = await NotesApi.createNote(input);
+      let noteResponse: Note;
+      if (noteToEdit) {
+        noteResponse = await NotesApi.updateNote(noteToEdit._id, input);
+      } else {
+        noteResponse = await NotesApi.createNote(input);
+      }
       onNoteSaved(noteResponse);
     } catch (error) {
       console.error(error);
@@ -30,11 +45,11 @@ const AddEditNoteBox = ({ onDismiss, onNoteSaved }: AddEditNoteBoxProps) => {
   return (
     <Modal show onHide={onDismiss}>
       <Modal.Header closeButton>
-        <Modal.Title>ADD Note</Modal.Title>
+        <Modal.Title>{noteToEdit ? "Edit Note" : "Add Note "}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-        <Form id="addNoteForm" onSubmit={handleSubmit(onSubmit)}>
+        <Form id="addEditNoteForm" onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>Title</Form.Label>
 
@@ -60,7 +75,7 @@ const AddEditNoteBox = ({ onDismiss, onNoteSaved }: AddEditNoteBoxProps) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button type="submit" form="addNoteForm" disabled={isSubmitting}>
+        <Button type="submit" form="addEditNoteForm" disabled={isSubmitting}>
           Save
         </Button>
       </Modal.Footer>
